@@ -5,59 +5,93 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gen Z Hub</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <header>
 
-<h1>🎬 Gen Z Hub</h1>
+<div class="menu">☰</div>
 
-<div class="top-bar">
-
-<input type="text" id="searchInput" placeholder="Search drama...">
-
-<button onclick="openAddModal()">
-+ Add Drama
-</button>
-
+<div class="search-box">
+<input type="text" placeholder="Search ...">
+<span>🔍</span>
 </div>
 
 </header>
 
 <section class="hero">
-<h2>Your Drama Collection</h2>
-<p>Track watched & watching dramas.</p>
+
+<img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1200">
+
+<div class="overlay">
+<h1>Gen Z Hub</h1>
+<p>Track all your dramas and series</p>
+
+<div class="hero-btns">
+<button class="watch">▶ Watch</button>
+<button class="rating">⭐ 8.5</button>
+</div>
+</div>
+
 </section>
 
-<div id="dramaContainer" class="drama-grid"></div>
-
-<div id="addModal" class="modal">
-
-<div class="modal-content">
-
-<h2>Add Drama</h2>
-
-<input id="title" placeholder="Title">
-<input id="poster" placeholder="Poster Image URL">
-<input id="genre" placeholder="Genre">
-<input id="rating" placeholder="Rating">
-<input id="year" placeholder="Year">
-<input id="language" placeholder="Language">
-<input id="quality" placeholder="Quality">
-<input id="watchLink" placeholder="Watch Link">
-<input id="trailer" placeholder="YouTube Trailer Link">
-
-<button onclick="addDrama()">Save</button>
-
-</div>
+<div class="section-title">
+<span></span>
+<h2>LATEST DRAMAS</h2>
 </div>
 
-<script src="app.js"></script>
+<section class="grid">
+
+<div class="card">
+<div class="poster">
+
+<img src="https://picsum.photos/300/450?1">
+
+<div class="badge rating-badge">⭐ 8.5</div>
+
+<div class="badge quality">WEB-DL</div>
+
+<div class="badge lang">Hi-En</div>
+
+</div>
+
+<h3>My Dearest Assassin</h3>
+
+<div class="meta">
+<span>2025</span>
+<span class="pill">TV</span>
+</div>
+
+</div>
+
+<div class="card">
+<div class="poster">
+
+<img src="https://picsum.photos/300/450?2">
+
+<div class="badge rating-badge">⭐ 9.0</div>
+
+<div class="badge quality">WEB-DL</div>
+
+<div class="badge lang">Hi-Ko</div>
+
+</div>
+
+<h3>Office Romance</h3>
+
+<div class="meta">
+<span>2024</span>
+<span class="pill">TV</span>
+</div>
+
+</div>
+
+</section>
+
+<button class="fab">+</button>
 
 </body>
 </html>
