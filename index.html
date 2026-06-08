@@ -11,9 +11,67 @@
 </head>
 <body>
 
+<div class="sidebar" id="sidebar">
+
+<div class="close-btn" onclick="closeMenu()">
+✕
+</div>
+
+<ul>
+<li>🏠 Home</li>
+<li>🎬 Movies</li>
+<li>📺 Series</li>
+<li>❤️ Favorites</li>
+</ul>
+
+</div>
+
+<!-- Header yaha se start -->
+<header>
+...
+</header>
+<body>
+<div class="sidebar" id="sidebar">
+
+<div class="close-btn" onclick="closeMenu()">
+✕
+</div>
+
+<ul>
+
+<li onclick="showAll()">
+🏠 Home
+</li>
+
+<li onclick="filterType('Movie')">
+🎬 Movies
+</li>
+
+<li onclick="filterType('Series')">
+📺 Series
+</li>
+
+<li onclick="showWatching()">
+👀 Watching
+</li>
+
+<li onclick="showWatched()">
+✅ Watched
+</li>
+
+<li onclick="showFavorites()">
+❤️ Favorites
+</li>
+
+</ul>
+
+</div>
+
 <header>
 
-<div class="menu">☰</div>
+<div class="menu" onclick="openMenu()">
+☰
+</div>
 
 <div class="search-box">
 <input type="text" placeholder="Search ...">
