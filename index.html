@@ -1,94 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gen Z Hub</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gen Z Hub</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <header class="topbar">
-    <div>
-      <div class="brand">Gen Z Hub</div>
-      <div class="tagline">Track dramas, movies & web series</div>
-    </div>
-    <button id="themeBtn" class="icon-btn">◐</button>
-  </header>
 
-  <main class="container">
-    <section class="hero">
-      <div>
-        <h1>Keep your watched and watching list in one cool place.</h1>
-        <p>Add dramas, search fast, open details, and mark what you already watched.</p>
-      </div>
-      <div class="actions">
-        <button id="addBtn" class="primary-btn">+ Add Drama</button>
-      </div>
-    </section>
+<header>
 
-    <section class="toolbar">
-      <input id="searchInput" type="search" placeholder="Search drama, year, genre..." />
-      <select id="filterSelect">
-        <option value="all">All</option>
-        <option value="watching">Watching</option>
-        <option value="watched">Watched</option>
-      </select>
-    </section>
+<h1>🎬 Gen Z Hub</h1>
 
-    <section class="stats" id="stats"></section>
-    <section id="dramaGrid" class="grid"></section>
-  </main>
+<div class="top-bar">
 
-  <dialog id="dramaDialog">
-    <form id="dramaForm" method="dialog" class="dialog-card">
-      <h2>Add Drama</h2>
-      <div class="form-grid">
-        <input name="title" placeholder="Title" required />
-        <input name="year" type="number" placeholder="Year" required />
-        <input name="genre" placeholder="Genre" required />
-        <input name="rating" type="number" step="0.1" min="0" max="10" placeholder="Rating" required />
-        <input name="stars" placeholder="Stars" />
-        <input name="language" placeholder="Language" />
-        <input name="quality" placeholder="Quality" />
-        <input name="poster" placeholder="Poster image URL" />
-        <input name="watchLink" placeholder="Watch link" />
-        <input name="trailer" placeholder="YouTube trailer link" />
-      </div>
-      <div class="status-row">
-        <label><input type="radio" name="status" value="watching" checked /> Watching</label>
-        <label><input type="radio" name="status" value="watched" /> Watched</label>
-      </div>
-      <div class="dialog-actions">
-        <button type="button" id="cancelBtn" class="ghost-btn">Cancel</button>
-        <button type="submit" class="primary-btn">Save</button>
-      </div>
-    </form>
-  </dialog>
+<input type="text" id="searchInput" placeholder="Search drama...">
 
-  <template id="cardTemplate">
-    <article class="card">
-      <img class="poster" alt="Poster" />
-      <div class="card-body">
-        <div class="card-top">
-          <h3 class="title"></h3>
-          <button class="delete-btn" title="Delete">✕</button>
-        </div>
-        <div class="meta"></div>
-        <div class="badge-row">
-          <span class="status-badge"></span>
-          <span class="rating-badge"></span>
-        </div>
-        <div class="mini-actions">
-          <button class="mark-btn"></button>
-          <button class="open-btn">Open</button>
-        </div>
-      </div>
-    </article>
-  </template>
+<button onclick="openAddModal()">
++ Add Drama
+</button>
 
-  <script src="app.js"></script>
+</div>
+
+</header>
+
+<section class="hero">
+<h2>Your Drama Collection</h2>
+<p>Track watched & watching dramas.</p>
+</section>
+
+<div id="dramaContainer" class="drama-grid"></div>
+
+<div id="addModal" class="modal">
+
+<div class="modal-content">
+
+<h2>Add Drama</h2>
+
+<input id="title" placeholder="Title">
+<input id="poster" placeholder="Poster Image URL">
+<input id="genre" placeholder="Genre">
+<input id="rating" placeholder="Rating">
+<input id="year" placeholder="Year">
+<input id="language" placeholder="Language">
+<input id="quality" placeholder="Quality">
+<input id="watchLink" placeholder="Watch Link">
+<input id="trailer" placeholder="YouTube Trailer Link">
+
+<button onclick="addDrama()">Save</button>
+
+</div>
+</div>
+
+<script src="app.js"></script>
+
 </body>
 </html>
