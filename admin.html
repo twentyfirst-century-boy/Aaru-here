@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gen Z Hub - Admin Panel</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="admin-body">
+  <div class="admin-container">
+    <h1>🎬 Add New Content</h1>
+    <p>Fill details to add movie / drama</p>
+
+    <form id="addForm" class="form-grid">
+      <div class="input-box">
+        <input id="title" type="text" placeholder=" " required>
+        <label>Title</label>
+      </div>
+
+      <div class="input-box">
+        <input id="category" type="text" placeholder=" " required>
+        <label>Category (Movie/K-Drama/C-Drama/Anime)</label>
+      </div>
+
+      <div class="input-box">
+        <input id="rating" type="number" placeholder=" " step="0.1" min="1" max="10" required>
+        <label>Rating (1-10)</label>
+      </div>
+
+      <div class="input-box">
+        <input id="year" type="number" placeholder=" " min="1900" max="2030" required>
+        <label>Year</label>
+      </div>
+
+      <div class="input-box">
+        <input id="episodes" type="number" placeholder=" " min="1" required>
+        <label>Episodes</label>
+      </div>
+
+      <div class="input-box">
+        <input id="image" type="text" placeholder=" " required>
+        <label>Image URL</label>
+      </div>
+
+      <div class="input-box">
+        <input id="genre" type="text" placeholder=" " required>
+        <label>Genre</label>
+      </div>
+
+      <div class="input-box">
+        <input id="status" type="text" placeholder=" " required>
+        <label>Status (Completed/Returning)</label>
+      </div>
+
+      <div class="input-box textarea-box">
+        <textarea id="desc" placeholder=" " required></textarea>
+        <label>Short Description</label>
+      </div>
+
+      <div class="input-box textarea-box">
+        <textarea id="about" placeholder=" " required></textarea>
+        <label>Detailed Description (Hindi/English)</label>
+      </div>
+    </form>
+
+    <button class="glow-btn" onclick="addDrama()">
+      ➕ Add to Gen Z Hub
+    </button>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
