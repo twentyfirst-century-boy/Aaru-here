@@ -46,8 +46,11 @@ ${drama.language}
 <span class="pill">
 ${drama.status}
 </span>
-
 </div>
+
+<p style="margin-top:8px;">
+🎭 ${drama.genre}
+</p>
 
 <div class="actions">
 
@@ -55,12 +58,12 @@ ${drama.status}
 👀
 </button>
 
-<button onclick="deleteDrama(${index})">
-🗑️
+<button onclick="toggleFavorite(${index})">
+❤️
 </button>
 
-<button onclick="openDetails(${index})">
-📖
+<button onclick="deleteDrama(${index})">
+🗑️
 </button>
 
 </div>
@@ -70,6 +73,7 @@ ${drama.status}
 `;
 });
 
+updateStats();
 }
 
 function addDrama(drama){
@@ -79,6 +83,53 @@ dramas.unshift(drama);
 saveData();
 
 renderDramas();
+}
+
+function saveDrama(){
+
+const drama = {
+
+title:
+document.getElementById("title").value,
+
+poster:
+document.getElementById("poster").value,
+
+genre:
+document.getElementById("genre").value,
+
+rating:
+document.getElementById("rating").value,
+
+year:
+document.getElementById("year").value,
+
+language:
+document.getElementById("language").value,
+
+quality:
+document.getElementById("quality").value,
+
+watch:
+document.getElementById("watch").value,
+
+trailer:
+document.getElementById("trailer").value,
+
+type:
+document.getElementById("type").value,
+
+status:"Watching",
+
+favorite:false
+
+};
+
+addDrama(drama);
+
+document.getElementById(
+"addModal"
+).style.display="none";
 
 }
 
@@ -93,7 +144,6 @@ saveData();
 renderDramas();
 
 }
-
 }
 
 function toggleStatus(index){
@@ -108,39 +158,145 @@ dramas[index].status === "Watching"
 saveData();
 
 renderDramas();
+}
+
+function toggleFavorite(index){
+
+dramas[index].favorite =
+!dramas[index].favorite;
+
+saveData();
+
+renderDramas();
+}
+
+function showFavorites(){
+
+const favs =
+dramas.filter(
+d => d.favorite
+);
+
+renderDramas(favs);
+}
+
+function showWatching(){
+
+const watching =
+dramas.filter(
+d => d.status === "Watching"
+);
+
+renderDramas(watching);
+}
+
+function showWatched(){
+
+const watched =
+dramas.filter(
+d => d.status === "Watched"
+);
+
+renderDramas(watched);
+}
+
+function showAll(){
+renderDramas();
+}
+
+function filterType(type){
+
+const filtered =
+dramas.filter(
+d => d.type === type
+);
+
+renderDramas(filtered);
+}
+
+function openMenu(){
+
+document
+.getElementById("sidebar")
+.classList.add("show");
 
 }
 
-function openDetails(index){
+function closeMenu(){
 
-window.location.href =
-`details.html?id=${index}`;
+document
+.getElementById("sidebar")
+.classList.remove("show");
+
+}
+
+function openModal(){
+
+document
+.getElementById("addModal")
+.style.display="flex";
+
+}
+
+function updateStats(){
+
+const total =
+document.getElementById(
+"totalDramas"
+);
+
+const watching =
+document.getElementById(
+"watchingCount"
+);
+
+const watched =
+document.getElementById(
+"watchedCount"
+);
+
+if(total)
+total.innerText = dramas.length;
+
+if(watching)
+watching.innerText =
+dramas.filter(
+d=>d.status==="Watching"
+).length;
+
+if(watched)
+watched.innerText =
+dramas.filter(
+d=>d.status==="Watched"
+).length;
+}
+
+const searchInput =
+document.querySelector(
+".search-box input"
+);
+
+if(searchInput){
+
+searchInput.addEventListener(
+"input",
+(e)=>{
+
+const keyword =
+e.target.value.toLowerCase();
+
+const filtered =
+dramas.filter(
+drama =>
+drama.title
+.toLowerCase()
+.includes(keyword)
+);
+
+renderDramas(filtered);
+
+});
 
 }
 
 renderDramas();
-let currentSlide = 0;
-
-const slides =
-document.querySelectorAll(".slide");
-
-function autoSlider(){
-
-slides.forEach((slide)=>{
-slide.style.display="none";
-});
-
-currentSlide++;
-
-if(currentSlide > slides.length){
-currentSlide = 1;
-}
-
-slides[currentSlide-1]
-.style.display="block";
-
-}
-
-setInterval(autoSlider,4000);
-
-autoSlider();
