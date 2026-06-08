@@ -1,5 +1,6 @@
 window.addEventListener("load", () => {
   const loader = document.getElementById("loader");
+
   if (!loader) return;
 
   setTimeout(() => {
@@ -22,60 +23,26 @@ const recommendedList = document.getElementById("recommendedList");
 const searchInput = document.getElementById("search");
 const filterButtons = document.querySelectorAll(".menu-btn");
 const darkModeBtn = document.getElementById("darkModeBtn");
-const notifyBtn = document.getElementById("notifyBtn");
 const userProfile = document.getElementById("userProfile");
 const topBtn = document.getElementById("topBtn");
 
 let currentFilter = "all";
-let notificationQueue = [];
 
 /* ===========================
-   NOTIFICATION SYSTEM
+   GET DRAMAS FROM LOCALSTORAGE OR DEFAULT
 =========================== */
-function showNotification(message) {
-  const notif = document.getElementById("notification");
-  const notifText = document.getElementById("notif-text");
+function getDramas() {
+  let localStorageDramas = JSON.parse(localStorage.getItem("dramas")) || [];
   
-  notifText.textContent = message;
-  notif.classList.add("show");
+  if (localStorageDramas.length > 0) {
+    return localStorageDramas;
+  }
   
-  setTimeout(() => {
-    notif.classList.remove("show");
-  }, 3000);
+  return window.dramas || [];
 }
 
 /* ===========================
-   DARK MODE
-=========================== */
-darkModeBtn.addEventListener("click", () => {
-  document.body.classList.toggle("light-mode");
-  const icon = darkModeBtn.querySelector("i");
-  
-  if (document.body.classList.contains("light-mode")) {
-    icon.className = "fa-solid fa-sun";
-    showNotification("Light Mode Activated!");
-  } else {
-    icon.className = "fa-solid fa-moon";
-    showNotification("Dark Mode Activated!");
-  }
-});
-
-/* ===========================
-   USER PROFILE DROPDOWN
-=========================== */
-userProfile.addEventListener("click", () => {
-  userProfile.classList.toggle("active");
-});
-
-// Close dropdown when clicking outside
-document.addEventListener("click", (e) => {
-  if (!userProfile.contains(e.target)) {
-    userProfile.classList.remove("active");
-  }
-});
-
-/* ===========================
-   CARD HTML WITH NEW FEATURES
+   CARD HTML
 =========================== */
 function createCard(item) {
   const isFavorite = item.favorites || false;
@@ -94,12 +61,12 @@ function createCard(item) {
           <span class="category">${item.category}</span>
         </div>
         
-        <p>${item.description.substring(0, 80)}...</p>
+        <p>${item.description ? item.description.substring(0, 80) : ''}...</p>
         
         <div class="card-actions">
           <button class="like-btn ${isFavorite ? 'active' : ''}" 
             onclick="event.stopPropagation(); toggleFavorite(${item.id})">
-            <i class="fa-solid fa-${isFavorite ? 'heart' : 'heart'}"></i>
+            <i class="fa-solid fa-heart"></i>
           </button>
           <button class="watch-btn" 
             onclick="event.stopPropagation(); addToWatchlist(${item.id})">
@@ -120,6 +87,11 @@ function createCard(item) {
 =========================== */
 function toggleFavorite(id) {
   let dramas = JSON.parse(localStorage.getItem("dramas")) || [];
+  
+  if (dramas.length === 0) {
+    dramas = window.dramas || [];
+  }
+  
   const item = dramas.find(d => d.id === id);
   
   if (item) {
@@ -152,38 +124,91 @@ function addToWatchlist(id) {
 }
 
 /* ===========================
-   RENDER WITH ALL SECTIONS
+   NOTIFICATION SYSTEM
+=========================== */
+function showNotification(message) {
+  const notif = document.getElementById("notification");
+  const notifText = document.getElementById("notif-text");
+  
+  if (notif && notifText) {
+    notifText.textContent = message;
+    notif.classList.add("show");
+    
+    setTimeout(() => {
+      notif.classList.remove("show");
+    }, 3000);
+  }
+}
+
+/* ===========================
+   DARK MODE
+=========================== */
+if (darkModeBtn) {
+  darkModeBtn.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+    const icon = darkModeBtn.querySelector("i");
+    
+    if (document.body.classList.contains("light-mode")) {
+      icon.className = "fa-solid fa-sun";
+      showNotification("Light Mode Activated!");
+    } else {
+      icon.className = "fa-solid fa-moon";
+      showNotification("Dark Mode Activated!");
+    }
+  });
+}
+
+/* ===========================
+   USER PROFILE DROPDOWN
+=========================== */
+if (userProfile) {
+  userProfile.addEventListener("click", () => {
+    userProfile.classList.toggle("active");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!userProfile.contains(e.target)) {
+      userProfile.classList.remove("active");
+    }
+  });
+}
+
+/* ===========================
+   RENDER
 =========================== */
 function render() {
-  let dramas = JSON.parse(localStorage.getItem("dramas")) || [];
+  const dramas = getDramas();
   
-  if (!dramas.length) {
-    dramas = window.dramas || [];
+  if (!trendingList || !latestList || !topList) return;
+
+  if (dramas.length === 0) {
+    trendingList.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: #888; padding: 40px;'>No dramas added yet. Use Admin panel to add! ➕</p>";
+    latestList.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: #888; padding: 40px;'>No dramas added yet. Use Admin panel to add! ➕</p>";
+    topList.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: #888; padding: 40px;'>No dramas added yet. Use Admin panel to add! ➕</p>";
+    return;
   }
 
   let keyword = searchInput.value.toLowerCase();
-  
+
   let filtered = dramas.filter(item => {
     return (
-      item.title.toLowerCase().includes(keyword) &&
+      item.title && item.title.toLowerCase().includes(keyword) &&
       (currentFilter === "all" || item.category === currentFilter)
     );
   });
 
-  // Trending
   trendingList.innerHTML = "";
+  latestList.innerHTML = "";
+  topList.innerHTML = "";
+
   filtered.slice(0, 8).forEach(item => {
     trendingList.innerHTML += createCard(item);
   });
 
-  // Latest
-  latestList.innerHTML = "";
   [...filtered].reverse().slice(0, 8).forEach(item => {
     latestList.innerHTML += createCard(item);
   });
 
-  // Top Rated
-  topList.innerHTML = "";
   [...filtered]
     .sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating))
     .slice(0, 8)
@@ -191,12 +216,12 @@ function render() {
       topList.innerHTML += createCard(item);
     });
 
-  // Favorites
   if (favoritesList) {
     favoritesList.innerHTML = "";
     const favorites = filtered.filter(item => item.favorites);
+    
     if (favorites.length === 0) {
-      favoritesList.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: #888;'>No favorites yet. Add some! ❤️</p>";
+      favoritesList.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: #888; padding: 40px;'>No favorites yet. Add some! ❤️</p>";
     } else {
       favorites.forEach(item => {
         favoritesList.innerHTML += createCard(item);
@@ -204,12 +229,12 @@ function render() {
     }
   }
 
-  // Recommended (based on genre & rating)
   if (recommendedList) {
     recommendedList.innerHTML = "";
     const recommended = [...filtered]
       .sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating))
       .slice(0, 8);
+    
     recommended.forEach(item => {
       recommendedList.innerHTML += createCard(item);
     });
@@ -219,7 +244,9 @@ function render() {
 /* ===========================
    SEARCH & FILTER
 =========================== */
-searchInput.addEventListener("input", render);
+if (searchInput) {
+  searchInput.addEventListener("input", render);
+}
 
 filterButtons.forEach(btn => {
   btn.addEventListener("click", () => {
@@ -243,9 +270,17 @@ function openDetails(id) {
 =========================== */
 function deleteDrama(id) {
   let dramas = JSON.parse(localStorage.getItem("dramas")) || [];
+
+  if (dramas.length === 0) {
+    dramas = window.dramas || [];
+  }
+
   dramas = dramas.filter(item => item.id !== id);
+
   localStorage.setItem("dramas", JSON.stringify(dramas));
+
   showNotification("Drama Deleted! 🗑");
+
   render();
 }
 
@@ -256,23 +291,26 @@ document.querySelectorAll(".slide-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     const section = btn.dataset.section;
     const container = document.getElementById(section);
-    const cards = container.querySelectorAll(".card");
-    const cardsArray = Array.from(cards);
     
-    if (btn.classList.contains("prev")) {
-      cardsArray.forEach(card => {
-        card.style.transform = "translateX(-100%)";
-        setTimeout(() => {
-          card.style.transform = "translateX(0)";
-        }, 100);
-      });
-    } else {
-      cardsArray.forEach(card => {
-        card.style.transform = "translateX(100%)";
-        setTimeout(() => {
-          card.style.transform = "translateX(0)";
-        }, 100);
-      });
+    if (container) {
+      const cards = container.querySelectorAll(".card");
+      const cardsArray = Array.from(cards);
+      
+      if (btn.classList.contains("prev")) {
+        cardsArray.forEach(card => {
+          card.style.transform = "translateX(-100%)";
+          setTimeout(() => {
+            card.style.transform = "translateX(0)";
+          }, 100);
+        });
+      } else {
+        cardsArray.forEach(card => {
+          card.style.transform = "translateX(100%)";
+          setTimeout(() => {
+            card.style.transform = "translateX(0)";
+          }, 100);
+        });
+      }
     }
   });
 });
@@ -280,13 +318,15 @@ document.querySelectorAll(".slide-btn").forEach(btn => {
 /* ===========================
    BACK TO TOP
 =========================== */
-window.addEventListener("scroll", () => {
-  topBtn.style.display = window.scrollY > 300 ? "block" : "none";
-});
+if (topBtn) {
+  window.addEventListener("scroll", () => {
+    topBtn.style.display = window.scrollY > 300 ? "block" : "none";
+  });
 
-topBtn.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
+  topBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
 
 /* ===========================
    INIT
