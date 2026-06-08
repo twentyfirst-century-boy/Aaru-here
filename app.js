@@ -1,137 +1,121 @@
-let dramas =
-JSON.parse(
-localStorage.getItem("dramas")
-) || [];
+const dramaGrid = document.querySelector(".grid");
 
-function saveData(){
+let dramas =
+JSON.parse(localStorage.getItem("genzhub")) || [];
+
+function saveData() {
 localStorage.setItem(
-"dramas",
+"genzhub",
 JSON.stringify(dramas)
 );
 }
 
-function render(){
+function renderDramas(data = dramas) {
 
-const container =
-document.getElementById(
-"dramaContainer"
-);
+dramaGrid.innerHTML = "";
 
-container.innerHTML="";
+data.forEach((drama,index)=>{
 
-dramas.forEach((d,index)=>{
+dramaGrid.innerHTML += `
 
-container.innerHTML += `
 <div class="card">
 
-<a href="details.html?id=${index}">
+<div class="poster">
 
-<img src="${d.poster}">
+<img src="${drama.poster}">
 
-<div class="card-content">
+<div class="badge rating-badge">
+⭐ ${drama.rating}
+</div>
 
-<h3>${d.title}</h3>
+<div class="badge quality">
+${drama.quality}
+</div>
 
-<p class="genre">${d.genre}</p>
-
-<p>${d.year}</p>
-
-<span class="rating">⭐ ${d.rating}</span>
+<div class="badge lang">
+${drama.language}
+</div>
 
 </div>
 
-</a>
+<h3>${drama.title}</h3>
+
+<div class="meta">
+<span>${drama.year}</span>
+
+<span class="pill">
+${drama.status}
+</span>
+
+</div>
 
 <div class="actions">
 
-<button class="watch-btn"
-onclick="toggleWatch(${index})">
-${d.status}
+<button onclick="toggleStatus(${index})">
+👀
 </button>
 
-<button class="delete-btn"
-onclick="deleteDrama(${index})">
-Delete
+<button onclick="deleteDrama(${index})">
+🗑️
+</button>
+
+<button onclick="openDetails(${index})">
+📖
 </button>
 
 </div>
 
 </div>
+
 `;
 });
+
 }
 
-function addDrama(){
+function addDrama(drama){
 
-const drama={
-title:title.value,
-poster:poster.value,
-genre:genre.value,
-rating:rating.value,
-year:year.value,
-language:language.value,
-quality:quality.value,
-watchLink:watchLink.value,
-trailer:trailer.value,
-status:"Watching"
-};
-
-dramas.push(drama);
+dramas.unshift(drama);
 
 saveData();
-render();
 
-document.getElementById(
-"addModal"
-).style.display="none";
+renderDramas();
+
 }
 
-function deleteDrama(i){
-dramas.splice(i,1);
+function deleteDrama(index){
+
+if(confirm("Delete Drama?")){
+
+dramas.splice(index,1);
+
 saveData();
-render();
+
+renderDramas();
+
 }
 
-function toggleWatch(i){
+}
 
-dramas[i].status =
-dramas[i].status==="Watching"
+function toggleStatus(index){
+
+dramas[index].status =
+dramas[index].status === "Watching"
 ?
 "Watched"
 :
 "Watching";
 
 saveData();
-render();
+
+renderDramas();
+
 }
 
-function openAddModal(){
-document.getElementById(
-"addModal"
-).style.display="block";
+function openDetails(index){
+
+window.location.href =
+`details.html?id=${index}`;
+
 }
 
-render();
-
-document
-.getElementById("searchInput")
-.addEventListener("input",e=>{
-
-let value =
-e.target.value.toLowerCase();
-
-document
-.querySelectorAll(".card")
-.forEach(card=>{
-
-card.style.display =
-card.innerText
-.toLowerCase()
-.includes(value)
-?
-"block"
-:
-"none";
-
-});
-});
+renderDramas();
