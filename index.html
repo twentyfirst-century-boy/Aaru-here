@@ -1,123 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gen Z Hub - Track Your Movies & Web Series</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gen Z Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div class="app-container">
-        <header class="header">
-            <div class="logo">
-                <h1 class="logo-text">Gen Z Hub</h1>
-            </div>
-            <div class="header-actions">
-                <button id="addDramaBtn" class="btn-primary" onclick="showAddForm()">
-                    <span class="icon">+</span> Add Drama
-                </button>
-            </div>
-        </header>
-
-        <div class="search-container">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search movies & web series..." onkeyup="searchDramas()">
-            <button class="search-btn" onclick="searchDramas()">🔍</button>
-        </div>
-
-        <div class="filter-tabs">
-            <button class="filter-tab active" onclick="filterBy('all')">All</button>
-            <button class="filter-tab" onclick="filterBy('watching')">Watching</button>
-            <button class="filter-tab" onclick="filterBy('watched')">Watched</button>
-            <button class="filter-tab" onclick="filterBy('movies')">Movies</button>
-            <button class="filter-tab" onclick="filterBy('series')">Series</button>
-        </div>
-
-        <main class="main-content">
-            <h2 class="section-title">My Drama List</h2>
-            <div id="dramaGrid" class="drama-grid"></div>
-        </main>
-
-        <div id="addFormModal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Add New Drama</h3>
-                    <button class="close-btn" onclick="hideAddForm()">✕</button>
-                </div>
-                <form id="addDramaForm" class="add-form" onsubmit="addDrama(event)">
-                    <div class="form-group">
-                        <label for="title">Title *</label>
-                        <input type="text" id="title" class="form-input" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="poster">Poster URL</label>
-                        <input type="url" id="poster" class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label for="year">Year *</label>
-                        <input type="number" id="year" class="form-input" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="genre">Genre *</label>
-                        <input type="text" id="genre" class="form-input" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="rating">Rating (1-10)</label>
-                        <input type="number" id="rating" class="form-input" min="1" max="10" step="0.1">
-                    </div>
-                    <div class="form-group">
-                        <label for="stars">Stars</label>
-                        <input type="text" id="stars" class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label for="language">Language</label>
-                        <input type="text" id="language" class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label for="quality">Quality</label>
-                        <input type="text" id="quality" class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label for="watchLink">Watch Link</label>
-                        <input type="url" id="watchLink" class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label for="trailerLink">Trailer Link (YouTube)</label>
-                        <input type="url" id="trailerLink" class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label for="type">Type *</label>
-                        <select id="type" class="form-select" required>
-                            <option value="movie">Movie</option>
-                            <option value="series">Web Series</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="status">Status</label>
-                        <select id="status" class="form-select">
-                            <option value="watching">Watching</option>
-                            <option value="watched">Watched</option>
-                            <option value="planned">Planned</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn-primary btn-submit">Add to List</button>
-                </form>
-            </div>
-        </div>
-
-        <div id="dramaDetailsModal" class="modal">
-            <div class="modal-content details-modal">
-                <div class="modal-header">
-                    <button class="close-btn" onclick="hideDramaDetails()">✕</button>
-                </div>
-                <div id="dramaDetails" class="details-content"></div>
-            </div>
-        </div>
-
-        <footer class="footer">
-            <p>Gen Z Hub © 2026 - Track Your Movies & Web Series</p>
-        </footer>
+  <header class="topbar">
+    <div>
+      <div class="brand">Gen Z Hub</div>
+      <div class="tagline">Track dramas, movies & web series</div>
     </div>
-    <script src="script.js"></script>
+    <button id="themeBtn" class="icon-btn">◐</button>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h1>Keep your watched and watching list in one cool place.</h1>
+        <p>Add dramas, search fast, open details, and mark what you already watched.</p>
+      </div>
+      <div class="actions">
+        <button id="addBtn" class="primary-btn">+ Add Drama</button>
+      </div>
+    </section>
+
+    <section class="toolbar">
+      <input id="searchInput" type="search" placeholder="Search drama, year, genre..." />
+      <select id="filterSelect">
+        <option value="all">All</option>
+        <option value="watching">Watching</option>
+        <option value="watched">Watched</option>
+      </select>
+    </section>
+
+    <section class="stats" id="stats"></section>
+    <section id="dramaGrid" class="grid"></section>
+  </main>
+
+  <dialog id="dramaDialog">
+    <form id="dramaForm" method="dialog" class="dialog-card">
+      <h2>Add Drama</h2>
+      <div class="form-grid">
+        <input name="title" placeholder="Title" required />
+        <input name="year" type="number" placeholder="Year" required />
+        <input name="genre" placeholder="Genre" required />
+        <input name="rating" type="number" step="0.1" min="0" max="10" placeholder="Rating" required />
+        <input name="stars" placeholder="Stars" />
+        <input name="language" placeholder="Language" />
+        <input name="quality" placeholder="Quality" />
+        <input name="poster" placeholder="Poster image URL" />
+        <input name="watchLink" placeholder="Watch link" />
+        <input name="trailer" placeholder="YouTube trailer link" />
+      </div>
+      <div class="status-row">
+        <label><input type="radio" name="status" value="watching" checked /> Watching</label>
+        <label><input type="radio" name="status" value="watched" /> Watched</label>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" id="cancelBtn" class="ghost-btn">Cancel</button>
+        <button type="submit" class="primary-btn">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <template id="cardTemplate">
+    <article class="card">
+      <img class="poster" alt="Poster" />
+      <div class="card-body">
+        <div class="card-top">
+          <h3 class="title"></h3>
+          <button class="delete-btn" title="Delete">✕</button>
+        </div>
+        <div class="meta"></div>
+        <div class="badge-row">
+          <span class="status-badge"></span>
+          <span class="rating-badge"></span>
+        </div>
+        <div class="mini-actions">
+          <button class="mark-btn"></button>
+          <button class="open-btn">Open</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
 </body>
 </html>
