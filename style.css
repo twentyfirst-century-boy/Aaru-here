@@ -238,3 +238,9 @@ text-decoration:none;
 margin:10px 0;
 font-size:18px;
 }
+.menu{
+font-size:32px;
+color:#63dcca;
+cursor:pointer;
+padding:10px;
+}
