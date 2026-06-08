@@ -7,42 +7,79 @@ const id = params.get("id");
 
 const dramas =
 JSON.parse(
-localStorage.getItem("dramas")
+localStorage.getItem("genzhub")
 );
 
-const d = dramas[id];
+const drama = dramas[id];
 
 document.getElementById(
-"details"
+"detailsPage"
 ).innerHTML = `
 
+<div class="details-container">
+
 <img
-src="${d.poster}"
-style="
-width:100%;
-max-width:350px;
-border-radius:20px;
-">
+class="details-poster"
+src="${drama.poster}"
+>
 
-<h1>${d.title}</h1>
+<h1>${drama.title}</h1>
 
-<p>⭐ Rating: ${d.rating}</p>
-<p>🎭 Genre: ${d.genre}</p>
-<p>📅 Year: ${d.year}</p>
-<p>🌎 Language: ${d.language}</p>
-<p>🎬 Quality: ${d.quality}</p>
+<div class="detail-tags">
 
-<a href="${d.watchLink}" target="_blank">
-Watch Now
+<span>
+⭐ ${drama.rating}
+</span>
+
+<span>
+${drama.genre}
+</span>
+
+<span>
+${drama.year}
+</span>
+
+</div>
+
+<div class="info">
+
+<p>
+<b>Language:</b>
+${drama.language}
+</p>
+
+<p>
+<b>Quality:</b>
+${drama.quality}
+</p>
+
+<p>
+<b>Status:</b>
+${drama.status}
+</p>
+
+</div>
+
+<a
+class="watch-link"
+href="${drama.watch}"
+target="_blank">
+
+▶ Watch Now
+
 </a>
 
-<h2>Trailer</h2>
+<div class="trailer">
 
 <iframe
 width="100%"
-height="300"
-src="${d.trailer.replace("watch?v=","embed/")}"
+height="250"
+src="${drama.trailer}"
 allowfullscreen>
 </iframe>
+
+</div>
+
+</div>
 
 `;
