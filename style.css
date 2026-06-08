@@ -244,3 +244,24 @@ color:#63dcca;
 cursor:pointer;
 padding:10px;
 }
+.actions{
+display:flex;
+gap:8px;
+margin-top:10px;
+}
+
+.actions button{
+flex:1;
+padding:10px;
+border:none;
+border-radius:12px;
+background:#1e1e1e;
+color:white;
+font-size:18px;
+cursor:pointer;
+}
+
+.actions button:hover{
+background:#63dcca;
+color:black;
+}
