@@ -3,13 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Gen Z Hub</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
+<!-- Sidebar -->
 
 <div class="sidebar" id="sidebar">
 
@@ -18,30 +22,8 @@
 </div>
 
 <ul>
-<li>🏠 Home</li>
-<li>🎬 Movies</li>
-<li>📺 Series</li>
-<li>❤️ Favorites</li>
-</ul>
 
-</div>
-
-<!-- Header yaha se start -->
-<header>
-...
-</header>
-<body>
-<div class="sidebar" id="sidebar">
-
-<div class="close-btn" onclick="closeMenu()">
-✕
-</div>
-
-<ul>
-
-<li onclick="showAll()">
-🏠 Home
-</li>
+<li onclick="showAll()">🏠 Home</li>
 
 <li onclick="filterType('Movie')">
 🎬 Movies
@@ -67,6 +49,8 @@
 
 </div>
 
+<!-- Header -->
+
 <header>
 
 <div class="menu" onclick="openMenu()">
@@ -74,82 +58,140 @@
 </div>
 
 <div class="search-box">
-<input type="text" placeholder="Search ...">
+
+<input
+type="text"
+placeholder="Search Drama...">
+
 <span>🔍</span>
+
 </div>
 
 </header>
 
+<!-- Hero Banner -->
+
 <section class="hero">
 
-<img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1200">
+<img
+src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1200">
 
 <div class="overlay">
+
 <h1>Gen Z Hub</h1>
-<p>Track all your dramas and series</p>
+
+<p>
+Track all your favorite dramas
+</p>
 
 <div class="hero-btns">
-<button class="watch">▶ Watch</button>
-<button class="rating">⭐ 8.5</button>
+
+<button class="watch">
+▶ Watch
+</button>
+
+<button class="rating">
+⭐ 8.5
+</button>
+
 </div>
+
 </div>
 
 </section>
 
-<div class="section-title">
-<span></span>
-<h2>LATEST DRAMAS</h2>
+<!-- Stats -->
+
+<section class="stats">
+
+<div class="stat">
+<h3 id="totalDramas">0</h3>
+<p>Total</p>
 </div>
+
+<div class="stat">
+<h3 id="watchingCount">0</h3>
+<p>Watching</p>
+</div>
+
+<div class="stat">
+<h3 id="watchedCount">0</h3>
+<p>Watched</p>
+</div>
+
+</section>
+
+<!-- Latest -->
+
+<div class="section-title">
+
+<span></span>
+
+<h2>
+LATEST DRAMAS
+</h2>
+
+</div>
+
+<!-- Drama Grid -->
 
 <section class="grid">
 
-<div class="card">
-<div class="poster">
-
-<img src="https://picsum.photos/300/450?1">
-
-<div class="badge rating-badge">⭐ 8.5</div>
-
-<div class="badge quality">WEB-DL</div>
-
-<div class="badge lang">Hi-En</div>
-
-</div>
-
-<h3>My Dearest Assassin</h3>
-
-<div class="meta">
-<span>2025</span>
-<span class="pill">TV</span>
-</div>
-
-</div>
-
-<div class="card">
-<div class="poster">
-
-<img src="https://picsum.photos/300/450?2">
-
-<div class="badge rating-badge">⭐ 9.0</div>
-
-<div class="badge quality">WEB-DL</div>
-
-<div class="badge lang">Hi-Ko</div>
-
-</div>
-
-<h3>Office Romance</h3>
-
-<div class="meta">
-<span>2024</span>
-<span class="pill">TV</span>
-</div>
-
-</div>
-
 </section>
 
-<button class="fab">+</button>
+<!-- Floating Button -->
+
+<button
+class="fab"
+onclick="openModal()">
+
++
+
+</button>
+
+<!-- Add Drama Modal -->
+
+<div class="modal" id="addModal">
+
+<div class="modal-box">
+
+<h2>Add Drama</h2>
+
+<input id="title" placeholder="Title">
+
+<input id="poster" placeholder="Poster URL">
+
+<input id="genre" placeholder="Genre">
+
+<input id="rating" placeholder="Rating">
+
+<input id="year" placeholder="Year">
+
+<input id="language" placeholder="Language">
+
+<input id="quality" placeholder="Quality">
+
+<input id="watch" placeholder="Watch Link">
+
+<input id="trailer" placeholder="Trailer Link">
+
+<select id="type">
+
+<option>Movie</option>
+
+<option>Series</option>
+
+</select>
+
+<button onclick="saveDrama()">
+Save Drama
+</button>
+
+</div>
+
+</div>
+
+<script src="app.js"></script>
 
 </body>
 </html>
