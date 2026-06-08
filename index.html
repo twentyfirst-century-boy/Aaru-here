@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gen Z Hub - Discover Amazing Movies, Dramas & Anime">
+  <title>Gen Z Hub - Best Dramas & Movies</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+  <!-- LOADER -->
+  <div id="loader">
+    <h1>Gen Z Hub</h1>
+    <p>Loading amazing content...</p>
+    <div class="loader-spinner"></div>
+  </div>
+
+  <!-- NOTIFICATION POPUP -->
+  <div id="notification" class="notification">
+    <i class="fa-solid fa-check-circle"></i>
+    <span id="notif-text"></span>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fa-solid fa-film"></i>
+      <span>Gen Z Hub</span>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="search-box">
+      <input type="text" id="search" placeholder="Search Movies & Dramas...">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+
+    <!-- NEW FEATURES -->
+    <div class="nav-actions">
+      <button id="darkModeBtn" class="nav-btn" title="Toggle Dark Mode">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <button id="notifyBtn" class="nav-btn" title="Notifications">
+        <i class="fa-solid fa-bell"></i>
+        <span class="notify-count">0</span>
+      </button>
+      <a href="admin.html" class="add-btn">
+        <i class="fa-solid fa-plus"></i> Add
+      </a>
+      <div class="user-profile" id="userProfile">
+        <img src="https://ui-avatars.com/api/?name=User&background=4f7cff&color=fff" alt="Profile">
+        <div class="profile-dropdown">
+          <a href="#"><i class="fa-solid fa-user"></i> My Profile</a>
+          <a href="#"><i class="fa-solid fa-heart"></i> Favorites</a>
+          <a href="#"><i class="fa-solid fa-history"></i> Watch History</a>
+          <a href="#" class="logout"><i class="fa-solid fa-sign-out"></i> Logout</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FILTER MENU -->
+    <div class="menu">
+      <button class="menu-btn active" data-filter="all">All</button>
+      <button class="menu-btn" data-filter="Movie">Movies</button>
+      <button class="menu-btn" data-filter="K-Drama">K-Drama</button>
+      <button class="menu-btn" data-filter="C-Drama">C-Drama</button>
+      <button class="menu-btn" data-filter="Anime">Anime</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="overlay">
+      <h1>Welcome to <span>Gen Z Hub</span></h1>
+      <p>Discover Amazing Movies, Dramas & Anime with New Features</p>
+      <div class="hero-stats">
+        <div class="stat">
+          <i class="fa-solid fa-film"></i>
+          <span><b>500+</b> Content</span>
+        </div>
+        <div class="stat">
+          <i class="fa-solid fa-users"></i>
+          <span><b>10K+</b> Users</span>
+        </div>
+        <div class="stat">
+          <i class="fa-solid fa-star"></i>
+          <span><b>9.5+</b> Rating</span>
+        </div>
+      </div>
+      <a href="#trending">
+        <button>Explore Now <i class="fa-solid fa-arrow-right"></i></button>
+      </a>
+    </div>
+  </section>
+
+  <!-- TRENDING -->
+  <section id="trending" class="section">
+    <div class="section-title">
+      <i class="fa-solid fa-fire"></i> Trending This Week
+    </div>
+    <button class="slide-btn prev" data-section="trendingList"><i class="fa-solid fa-arrow-left"></i></button>
+    <div class="cards" id="trendingList"></div>
+    <button class="slide-btn next" data-section="trendingList"><i class="fa-solid fa-arrow-right"></i></button>
+  </section>
+
+  <!-- LATEST -->
+  <section class="section">
+    <div class="section-title">
+      <i class="fa-solid fa-clock"></i> Latest Additions
+    </div>
+    <button class="slide-btn prev" data-section="latestList"><i class="fa-solid fa-arrow-left"></i></button>
+    <div class="cards" id="latestList"></div>
+    <button class="slide-btn next" data-section="latestList"><i class="fa-solid fa-arrow-right"></i></button>
+  </section>
+
+  <!-- TOP RATED -->
+  <section class="section">
+    <div class="section-title">
+      <i class="fa-solid fa-star"></i> Top Rated
+    </div>
+    <button class="slide-btn prev" data-section="topList"><i class="fa-solid fa-arrow-left"></i></button>
+    <div class="cards" id="topList"></div>
+    <button class="slide-btn next" data-section="topList"><i class="fa-solid fa-arrow-right"></i></button>
+  </section>
+
+  <!-- NEW: FAVORITES SECTION -->
+  <section class="section">
+    <div class="section-title">
+      <i class="fa-solid fa-heart"></i> Your Favorites
+    </div>
+    <div class="cards" id="favoritesList"></div>
+  </section>
+
+  <!-- NEW: RECOMMENDED FOR YOU -->
+  <section class="section">
+    <div class="section-title">
+      <i class="fa-solid fa-compass"></i> Recommended For You
+    </div>
+    <div class="cards" id="recommendedList"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <h2>Gen Z Hub</h2>
+      <p>Watch • Discover • Explore</p>
+      <p>Made with ❤️ in India</p>
+      <div class="footer-social">
+        <a href="#"><i class="fa-solid fa-instagram"></i></a>
+        <a href="#"><i class="fa-solid fa-twitter"></i></a>
+        <a href="#"><i class="fa-solid fa-facebook"></i></a>
+        <a href="#"><i class="fa-solid fa-youtube"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BACK TO TOP -->
+  <button id="topBtn">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- SCRIPTS -->
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
