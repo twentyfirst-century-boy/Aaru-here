@@ -119,3 +119,28 @@ window.location.href =
 }
 
 renderDramas();
+let currentSlide = 0;
+
+const slides =
+document.querySelectorAll(".slide");
+
+function autoSlider(){
+
+slides.forEach((slide)=>{
+slide.style.display="none";
+});
+
+currentSlide++;
+
+if(currentSlide > slides.length){
+currentSlide = 1;
+}
+
+slides[currentSlide-1]
+.style.display="block";
+
+}
+
+setInterval(autoSlider,4000);
+
+autoSlider();
